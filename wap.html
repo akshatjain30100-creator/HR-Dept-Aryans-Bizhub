@@ -99,27 +99,42 @@
       margin-top: 14px;
       font-size: 14px;
       min-height: 20px;
+      /* Default desktop/tablet view */
+.input-group {
+  display: flex;
+  gap: 10px; /* Input aur button ke beech thoda gap */
+}
+
+/* Mobile View (Screen width 600px ya usse kam) */
+@media (max-width: 600px) {
+  .input-group {
+    flex-direction: column; /* Elements ko upar se neeche (column) align karega */
+    align-items: stretch;   /* Dono ki width container ke barabar kar dega */
+  }
+
+  .input-group input, 
+  .input-group button {
+    width: 100%;            /* Dono ki width 100% ho jayegi */
+    margin-bottom: 10px;    /* Neeche space banane ke liye */
     }
   </style>
 </head>
 <body>
 
-  <!-- Password Overlay -->
-  <div id="password-overlay">
-    <div class="password-card">
-      <h2>Access Restricted</h2>
-      <p>Is page ko access karne ke liye password enter karein:</p>
-      <div class="input-group">
-        <div>
-        <input type="password" id="site-password" placeholder="Enter Password" onkeypress="handleKeyPress(event)" />
-        </div>
-        <div>
-        <button onclick="checkPassword()">Unlock</button>
-        </div>  
-      </div>
-      <p id="error-msg"></p>
-    </div>
-  </div>
+<!-- Password Overlay --> 
+<div id="password-overlay"> 
+  <div class="password-card"> 
+    <h2>Access Restricted</h2> 
+    <p>Is page ko access karne ke liye password enter karein:</p> 
+    
+    <div class="input-group" style="display: flex; flex-direction: column; gap: 10px;"> 
+      <input type="password" id="site-password" placeholder="Enter Password" onkeypress="handleKeyPress(event)" style="width: 100%; padding: 10px;" /> 
+      <button onclick="checkPassword()" style="width: 100%; padding: 10px;">Unlock</button> 
+    </div> 
+    
+    <p id="error-msg"></p> 
+  </div> 
+</div>
 
   <script>
     const CORRECT_PASSWORD = "mysecretpassword"; // Yahan apna password set karein
