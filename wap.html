@@ -110,9 +110,12 @@
       <h2>Access Restricted</h2>
       <p>Is page ko access karne ke liye password enter karein:</p>
       <div class="input-group">
+        <div>
         <input type="password" id="site-password" placeholder="Enter Password" onkeypress="handleKeyPress(event)" />
-        <br>
+        </div>
+        <div>
         <button onclick="checkPassword()">Unlock</button>
+        </div>  
       </div>
       <p id="error-msg"></p>
     </div>
