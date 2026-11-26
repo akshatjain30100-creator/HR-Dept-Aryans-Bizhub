@@ -150,54 +150,50 @@
 </div>
 
   <script>
-    const ALLOWED_USERNAMES = ["Akshat NJ", "Ishita M"]; // Yahan allowed usernames set karein
-const TARGET_URL = "https://akshatjain30100-creator.github.io/HR-Dept-Aryans-Bizhub/proxy.html";
+  const ALLOWED_USERNAMES = ["Akshat NJ", "Ishita M"];
+  const CORRECT_PASSWORD = "mysecretpassword";
+  const TARGET_URL = "https://akshatjain30100-creator.github.io/HR-Dept-Aryans-Bizhub/proxy.html";
 
-function checkUsername() {
-  const inputUser = document.getElementById("site-username").value.trim();
-  const errorMsg = document.getElementById("error-msg");
+  function checkUsername() {
+    const input = document.getElementById("site-username");
+    const errorMsg = document.getElementById("error-msg");
+    if (!input || !errorMsg) return;
 
-  // Case-insensitive match ke liye lowercase me compare kar rahe hain
-  const isAllowed = ALLOWED_USERNAMES.some(
-    (name) => name.toLowerCase() === inputUser.toLowerCase()
-  );
+    const inputUser = input.value.trim();
+    const isAllowed = ALLOWED_USERNAMES.some(
+      (name) => name.toLowerCase() === inputUser.toLowerCase()
+    );
 
-  if (isAllowed && inputUser !== "") {
-    // Sahi username dalte hee redirect kar dega
-    window.location.href = TARGET_URL;
-  } else {
-    errorMsg.innerText = "Access Denied! Invalid username.";
-  }
-}
-
-// Enter key dabane par bhi form submit ho jayega
-function handleKeyPress(event) {
-  if (event.key === "Enter") {
-    checkUsername();
-  }
-}
-    const CORRECT_PASSWORD = "mysecretpassword"; // Yahan apna password set karein
-    const TARGET_URL = "https://akshatjain30100-creator.github.io/HR-Dept-Aryans-Bizhub/proxy.html";
-
-    function checkPassword() {
-      const inputPass = document.getElementById("site-password").value;
-      const errorMsg = document.getElementById("error-msg");
-
-      if (inputPass === CORRECT_PASSWORD) {
-        // Sahi password dalte hee redirect kar dega
-        window.location.href = TARGET_URL;
-      } else {
-        errorMsg.innerText = "Incorrect Password! Try again.";
-      }
+    if (isAllowed && inputUser !== "") {
+      window.location.href = TARGET_URL;
+    } else {
+      errorMsg.innerText = "Access Denied! Invalid username.";
     }
+  }
 
-    // Enter key dabane par bhi form submit ho jayega
-    function handleKeyPress(event) {
-      if (event.key === "Enter") {
-        checkPassword();
-      }
+  function checkPassword() {
+    const input = document.getElementById("site-password");
+    const errorMsg = document.getElementById("error-msg");
+    if (!input || !errorMsg) return;
+
+    const inputPass = input.value;
+    if (inputPass === CORRECT_PASSWORD) {
+      window.location.href = TARGET_URL;
+    } else {
+      errorMsg.innerText = "Incorrect Password! Try again.";
     }
-  </script>
+  }
+
+  function handleKeyPress(event) {
+    if (event.key !== "Enter") return;
+
+    if (event.target && event.target.id === "site-username") {
+      checkUsername();
+    } else if (event.target && event.target.id === "site-password") {
+      checkPassword();
+    }
+  }
+</script>
 
 </body>
 </html>
