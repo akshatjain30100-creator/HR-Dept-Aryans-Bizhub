@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WAP | Aryan's Bizhub</title>
-   <!-- Favicon Photo / Logo in Head -->
   <link rel="icon" type="image/png" href="bizhr.png">
   <style>
     * {
@@ -16,26 +15,24 @@
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #0f172a;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    #password-overlay {
+    .auth-overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       background-color: #0f172a;
       display: flex;
       justify-content: center;
       align-items: center;
+      padding: 16px;
       z-index: 9999;
     }
 
-    .password-card {
+    .auth-card {
       background: #1e293b;
       padding: 32px;
       border-radius: 12px;
@@ -43,16 +40,16 @@
       text-align: center;
       color: #ffffff;
       max-width: 400px;
-      width: 90%;
+      width: 100%;
       border: 1px solid #334155;
     }
 
-    .password-card h2 {
+    .auth-card h2 {
       margin-bottom: 8px;
       font-size: 24px;
     }
 
-    .password-card p {
+    .auth-card p.subtitle {
       color: #94a3b8;
       font-size: 14px;
       margin-bottom: 20px;
@@ -60,16 +57,17 @@
 
     .input-group {
       display: flex;
-      gap: 8px;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .input-group input {
-      flex: 1;
+      width: 100%;
       padding: 12px 14px;
       border-radius: 6px;
       border: 1px solid #334155;
       background: #0f172a;
-      color: #fff;
+      color: #ffffff;
       font-size: 15px;
       outline: none;
     }
@@ -79,11 +77,12 @@
     }
 
     .input-group button {
+      width: 100%;
       padding: 12px 20px;
       border-radius: 6px;
       border: none;
       background: #2563eb;
-      color: white;
+      color: #ffffff;
       font-size: 15px;
       font-weight: 600;
       cursor: pointer;
@@ -94,118 +93,106 @@
       background: #1d4ed8;
     }
 
-    #error-msg {
+    .error-msg {
       color: #ef4444;
       margin-top: 14px;
       font-size: 14px;
       min-height: 20px;
-      /* Default desktop/tablet view */
-.input-group {
-  display: flex;
-  gap: 10px; /* Input aur button ke beech thoda gap */
-}
-
-/* Mobile View (Screen width 600px ya usse kam) */
-@media (max-width: 600px) {
-  .input-group {
-    flex-direction: column; /* Elements ko upar se neeche (column) align karega */
-    align-items: stretch;   /* Dono ki width container ke barabar kar dega */
-  }
-
-  .input-group input, 
-  .input-group button {
-    width: 100%;            /* Dono ki width 100% ho jayegi */
-    margin-bottom: 10px;    /* Neeche space banane ke liye */
     }
   </style>
 </head>
 <body>
-<!-- Username Overlay -->
-<div id="username-overlay">
-  <div class="username-card">
-    <h2>Access Restricted</h2>
-    <p>Is page ko access karne ke liye username enter karein:</p>
+  <!-- Username Overlay -->
+  <div id="username-overlay" class="auth-overlay">
+    <div class="auth-card">
+      <h2>Access Restricted</h2>
+      <p class="subtitle">Is page ko access karne ke liye username enter karein:</p>
 
-    <div class="input-group" style="display: flex; flex-direction: column; gap: 10px;">
-      <input
-        type="text"
-        id="site-username"
-        placeholder="Enter Username"
-        onkeypress="handleKeyPress(event)"
-        style="width: 100%; padding: 10px;"
-      />
-      <button onclick="checkUsername()" style="width: 100%; padding: 10px;">Continue</button>
+      <div class="input-group">
+        <input
+          type="text"
+          id="site-username"
+          placeholder="Enter Username"
+          onkeypress="handleKeyPress(event)"
+        />
+        <button type="button" onclick="checkUsername()">Continue</button>
+      </div>
+
+      <p id="username-error" class="error-msg"></p>
     </div>
-
-    <p id="username-error"></p>
   </div>
-</div>
 
-<!-- Password Overlay -->
-<div id="password-overlay" style="display: none;">
-  <div class="password-card">
-    <h2>Access Restricted</h2>
-    <p>Is page ko access karne ke liye password enter karein:</p>
+  <!-- Password Overlay -->
+  <div id="password-overlay" class="auth-overlay" style="display: none;">
+    <div class="auth-card">
+      <h2>Access Restricted</h2>
+      <p class="subtitle">Is page ko access karne ke liye password enter karein:</p>
 
-    <div class="input-group" style="display: flex; flex-direction: column; gap: 10px;">
-      <input
-        type="password"
-        id="site-password"
-        placeholder="Enter Password"
-        onkeypress="handleKeyPress(event)"
-        style="width: 100%; padding: 10px;"
-      />
-      <button onclick="checkPassword()" style="width: 100%; padding: 10px;">Unlock</button>
+      <div class="input-group">
+        <input
+          type="password"
+          id="site-password"
+          placeholder="Enter Password"
+          onkeypress="handleKeyPress(event)"
+        />
+        <button type="button" onclick="checkPassword()">Unlock</button>
+      </div>
+
+      <p id="password-error" class="error-msg"></p>
     </div>
-
-    <p id="password-error"></p>
   </div>
-</div>
+
   <script>
-  const ALLOWED_USERNAMES = ["Akshat NJ", "Ishita M"];
-  const CORRECT_PASSWORD = "mysecretpassword";
-  const TARGET_URL = "https://akshatjain30100-creator.github.io/HR-Dept-Aryans-Bizhub/proxy.html";
+    const ALLOWED_USERNAMES = ["Akshat NJ", "Ishita M"];
+    const CORRECT_PASSWORD = "mysecretpassword";
+    const TARGET_URL = "https://akshatjain30100-creator.github.io/HR-Dept-Aryans-Bizhub/proxy.html";
 
-  function checkUsername() {
-    const input = document.getElementById("site-username");
-    const errorMsg = document.getElementById("error-msg");
-    if (!input || !errorMsg) return;
+    function checkUsername() {
+      const input = document.getElementById("site-username");
+      const errorMsg = document.getElementById("username-error");
+      const usernameOverlay = document.getElementById("username-overlay");
+      const passwordOverlay = document.getElementById("password-overlay");
+      const passwordInput = document.getElementById("site-password");
 
-    const inputUser = input.value.trim();
-    const isAllowed = ALLOWED_USERNAMES.some(
-      (name) => name.toLowerCase() === inputUser.toLowerCase()
-    );
+      if (!input || !errorMsg || !usernameOverlay || !passwordOverlay) return;
 
-    if (isAllowed && inputUser !== "") {
-      window.location.href = TARGET_URL;
-    } else {
-      errorMsg.innerText = "Access Denied! Invalid username.";
+      const inputUser = input.value.trim();
+      const isAllowed = ALLOWED_USERNAMES.some(
+        (name) => name.toLowerCase() === inputUser.toLowerCase()
+      );
+
+      if (isAllowed && inputUser !== "") {
+        errorMsg.innerText = "";
+        usernameOverlay.style.display = "none";
+        passwordOverlay.style.display = "flex";
+        if (passwordInput) passwordInput.focus();
+      } else {
+        errorMsg.innerText = "Access Denied! Invalid username.";
+      }
     }
-  }
 
-  function checkPassword() {
-    const input = document.getElementById("site-password");
-    const errorMsg = document.getElementById("error-msg");
-    if (!input || !errorMsg) return;
+    function checkPassword() {
+      const input = document.getElementById("site-password");
+      const errorMsg = document.getElementById("password-error");
+      if (!input || !errorMsg) return;
 
-    const inputPass = input.value;
-    if (inputPass === CORRECT_PASSWORD) {
-      window.location.href = TARGET_URL;
-    } else {
-      errorMsg.innerText = "Incorrect Password! Try again.";
+      if (input.value === CORRECT_PASSWORD) {
+        errorMsg.innerText = "";
+        window.location.href = TARGET_URL;
+      } else {
+        errorMsg.innerText = "Incorrect Password! Try again.";
+      }
     }
-  }
 
-  function handleKeyPress(event) {
-    if (event.key !== "Enter") return;
+    function handleKeyPress(event) {
+      if (event.key !== "Enter") return;
 
-    if (event.target && event.target.id === "site-username") {
-      checkUsername();
-    } else if (event.target && event.target.id === "site-password") {
-      checkPassword();
+      if (event.target && event.target.id === "site-username") {
+        checkUsername();
+      } else if (event.target && event.target.id === "site-password") {
+        checkPassword();
+      }
     }
-  }
-</script>
-
+  </script>
 </body>
 </html>
