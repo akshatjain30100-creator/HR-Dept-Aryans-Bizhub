@@ -120,7 +120,20 @@
   </style>
 </head>
 <body>
-
+<!-- Username Overlay -->
+<div id="username-overlay"> 
+  <div class="username-card"> 
+    <h2>Access Restricted</h2> 
+    <p>Is page ko access karne ke liye username enter karein:</p> 
+    
+    <div class="input-group" style="display: flex; flex-direction: column; gap: 10px;"> 
+      <input type="text" id="site-username" placeholder="Enter Username" onkeypress="handleKeyPress(event)" style="width: 100%; padding: 10px;" /> 
+      <button onclick="checkUsername()" style="width: 100%; padding: 10px;">Unlock</button> 
+    </div> 
+    
+    <p id="error-msg"></p> 
+  </div> 
+</div>
 <!-- Password Overlay --> 
 <div id="password-overlay"> 
   <div class="password-card"> 
@@ -137,6 +150,32 @@
 </div>
 
   <script>
+    const ALLOWED_USERNAMES = ["Akshat NJ", "Ishita M"]; // Yahan allowed usernames set karein
+const TARGET_URL = "https://akshatjain30100-creator.github.io/HR-Dept-Aryans-Bizhub/proxy.html";
+
+function checkUsername() {
+  const inputUser = document.getElementById("site-username").value.trim();
+  const errorMsg = document.getElementById("error-msg");
+
+  // Case-insensitive match ke liye lowercase me compare kar rahe hain
+  const isAllowed = ALLOWED_USERNAMES.some(
+    (name) => name.toLowerCase() === inputUser.toLowerCase()
+  );
+
+  if (isAllowed && inputUser !== "") {
+    // Sahi username dalte hee redirect kar dega
+    window.location.href = TARGET_URL;
+  } else {
+    errorMsg.innerText = "Access Denied! Invalid username.";
+  }
+}
+
+// Enter key dabane par bhi form submit ho jayega
+function handleKeyPress(event) {
+  if (event.key === "Enter") {
+    checkUsername();
+  }
+}
     const CORRECT_PASSWORD = "mysecretpassword"; // Yahan apna password set karein
     const TARGET_URL = "https://akshatjain30100-creator.github.io/HR-Dept-Aryans-Bizhub/proxy.html";
 
