@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Departement Aryan's Bizhub | Private Resource Hub</title>
+    <style>
+        /* ==========================================================================
+           1. CSS VARIABLES & THEME CONFIGURATION
+           ========================================================================== */
+        :root {
+            --bg-primary: #070b14;
+            --bg-secondary: #0d1424;
+            --glass-bg: rgba(16, 24, 43, 0.65);
+            --glass-bg-hover: rgba(22, 34, 60, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-border-accent: rgba(4, 197, 250, 0.4);
+            --accent: #04c5fa;
+            --accent-hover: #2dd2ff;
+            --accent-glow: rgba(4, 197, 250, 0.25);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --danger: #ff4d6d;
+            --danger-bg: rgba(255, 77, 109, 0.12);
+            --success: #10b981;
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+
+        /* ==========================================================================
+           2. RESET & BASE STYLES
+           ========================================================================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            min-height: 100vh;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.5;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Ambient Background Glow Orbs */
+        body::before, body::after {
+            content: "";
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(110px);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        body::before {
+            width: 45vw;
+            height: 45vw;
+            max-width: 550px;
+            max-height: 550px;
+            background: radial-gradient(circle, rgba(4, 197, 250, 0.14) 0%, rgba(4, 197, 250, 0) 70%);
+            top: -10%;
+            left: -10%;
+        }
+
+        body::after {
+            width: 50vw;
+            height: 50vw;
+            max-width: 600px;
+            max-height: 600px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, rgba(59, 130, 246, 0) 70%);
+            bottom: -15%;
+            right: -10%;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ==========================================================================
+           3. LOGIN GATE STYLES
+           ========================================================================== */
+        .auth-wrapper {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 440px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .auth-card.shake {
+            animation: shake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+            border-color: rgba(255, 77, 109, 0.5);
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-2px, 0, 0); }
+            20%, 80% { transform: translate3d(4px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+            40%, 60% { transform: translate3d(6px, 0, 0); }
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .vault-shield {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 1.15rem;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(4, 197, 250, 0.2), rgba(4, 197, 250, 0.05));
+            border: 1px solid var(--glass-border-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            box-shadow: 0 0 25px var(--accent-glow);
+        }
+
+        .auth-header h1 {
+            font-size: 1.55rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.35rem;
+        }
+
+        .auth-header p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-label-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.45rem;
+        }
+
+        .form-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            color: var(--text-muted);
+            pointer-events: none;
+            display: flex;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.8rem 2.75rem 0.8rem 2.65rem;
+            background: rgba(7, 11, 20, 0.65);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+            background: rgba(7, 11, 20, 0.85);
+        }
+
+        .toggle-pwd-btn {
+            position: absolute;
+            right: 10px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .toggle-pwd-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .error-banner {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            padding: 0.75rem 0.9rem;
+            margin-bottom: 1.25rem;
+            background: var(--danger-bg);
+            border: 1px solid rgba(255, 77, 109, 0.35);
+            border-radius: var(--radius-sm);
+            color: #ff859b;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .error-banner svg {
+            flex-shrink: 0;
+            margin-top: 2px;
+            color: var(--danger);
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 0.85rem 1.25rem;
+            background: var(--accent);
+            color: #041019;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(4, 197, 250, 0.35);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        /* ==========================================================================
+           4. PROTECTED DASHBOARD STYLES
+           ========================================================================== */
+        .dashboard-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.25rem 1.25rem 4rem;
+        }
+
+        /* Top Navigation Header */
+        .topbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            margin-bottom: 1.75rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .brand-badge {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: rgba(4, 197, 250, 0.14);
+            border: 1px solid var(--glass-border-accent);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .brand-text h2 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .brand-text span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: block;
+        }
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .user-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.85rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--glass-border);
+            border-radius: 999px;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success);
+            box-shadow: 0 0 8px var(--success);
+        }
+
+        .btn-logout {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.5rem 0.95rem;
+            background: rgba(255, 77, 109, 0.1);
+            border: 1px solid rgba(255, 77, 109, 0.3);
+            color: #ff859b;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-logout:hover {
+            background: rgba(255, 77, 109, 0.2);
+            border-color: var(--danger);
+            color: #fff;
+        }
+
+        /* Welcome Hero Banner */
+        .welcome-banner {
+            position: relative;
+            overflow: hidden;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            background: linear-gradient(135deg, rgba(16, 28, 52, 0.85) 0%, rgba(10, 18, 34, 0.9) 100%);
+            border: 1px solid var(--glass-border-accent);
+            margin-bottom: 1.75rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+
+        .welcome-banner::after {
+            content: "";
+            position: absolute;
+            right: -40px;
+            top: -40px;
+            width: 220px;
+            height: 220px;
+            background: radial-gradient(circle, rgba(4, 197, 250, 0.18) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .welcome-content h1 {
+            font-size: clamp(1.4rem, 3vw, 1.95rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.4rem;
+        }
+
+        .welcome-content h1 span {
+            color: var(--accent);
+        }
+
+        .welcome-content p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            max-width: 620px;
+        }
+
+        .vault-stats {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .stat-box {
+            padding: 0.85rem 1.25rem;
+            background: rgba(7, 11, 20, 0.6);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            text-align: center;
+            min-width: 105px;
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        /* Controls Bar (Search + Category Filter Pills) */
+        .controls-bar {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.75rem;
+        }
+
+        @media (min-width: 768px) {
+            .controls-bar {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+
+        .search-box {
+            position: relative;
+            width: 100%;
+            max-width: 380px;
+        }
+
+        .search-box svg {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.7rem 1rem 0.7rem 2.6rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        .filter-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .filter-pill {
+            padding: 0.5rem 0.95rem;
+            border-radius: 999px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            font-size: 0.83rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-pill:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            color: var(--text-primary);
+        }
+
+        .filter-pill.active {
+            background: rgba(4, 197, 250, 0.16);
+            border-color: var(--accent);
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Resource Grid & Cards */
+        .files-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .file-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .file-card:hover {
+            transform: translateY(-4px);
+            background: var(--glass-bg-hover);
+            border-color: var(--glass-border-accent);
+            box-shadow: 0 18px 36px -12px rgba(0, 0, 0, 0.55), 0 0 20px rgba(4, 197, 250, 0.08);
+        }
+
+        .card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .file-type-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(4, 197, 250, 0.12);
+            border: 1px solid rgba(4, 197, 250, 0.25);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .card-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 0.4rem;
+        }
+
+        .badge-category {
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 0.25rem 0.65rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-secondary);
+            border: 1px solid var(--glass-border);
+        }
+
+        .badge-ext {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.25rem 0.55rem;
+            border-radius: 6px;
+            background: rgba(4, 197, 250, 0.14);
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+
+        .card-body {
+            margin-bottom: 1.35rem;
+        }
+
+        .file-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.45rem;
+            line-height: 1.35;
+        }
+
+        .file-desc {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 0.85rem;
+        }
+
+        .file-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.76rem;
+            color: var(--text-muted);
+        }
+
+        .card-actions {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 0.6rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .btn-open {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            padding: 0.65rem 1rem;
+            background: var(--accent);
+            color: #041019;
+            text-decoration: none;
+            font-size: 0.86rem;
+            font-weight: 700;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+
+        .btn-open:hover {
+            background: var(--accent-hover);
+            box-shadow: 0 4px 16px var(--accent-glow);
+        }
+
+        .btn-copy {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            padding: 0.65rem 0.85rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            border-radius: var(--radius-sm);
+            font-size: 0.83rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-copy:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent);
+            color: var(--text-primary);
+        }
+
+        /* Empty State */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3.5rem 1.5rem;
+            background: var(--glass-bg);
+            border: 1px dashed var(--glass-border);
+            border-radius: var(--radius-lg);
+            color: var(--text-secondary);
+        }
+
+        .empty-state h3 {
+            color: var(--text-primary);
+            margin-bottom: 0.35rem;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.85rem 1.2rem;
+            background: #0f1c33;
+            border: 1px solid var(--accent);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 0.88rem;
+            font-weight: 500;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px var(--accent-glow);
+            transform: translateY(120%);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast svg {
+            color: var(--accent);
+        }
+
+        /* Mobile Tweaks */
+        @media (max-width: 480px) {
+            .auth-card {
+                padding: 2rem 1.35rem;
+            }
+            .topbar {
+                padding: 0.9rem 1rem;
+            }
+            .user-chip {
+                display: none;
+            }
+            .welcome-banner {
+                padding: 1.4rem;
+            }
+            .vault-stats {
+                width: 100%;
+            }
+            .stat-box {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ======================================================================
+         1. AUTHENTICATION GATE (LOGIN SCREEN)
+         ====================================================================== -->
+    <main id="authView" class="auth-wrapper">
+        <section id="authCard" class="auth-card" aria-labelledby="authHeading">
+            <div class="auth-header">
+                <div class="vault-shield" aria-hidden="true">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                </div>
+                <h1 id="authHeading">Private File Vault</h1>
+                <p>Restricted access for authorized members only</p>
+            </div>
+
+            <form id="loginForm" novalidate>
+                <!-- Error Message Box -->
+                <div id="authError" class="error-banner hidden" role="alert">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <span id="authErrorText">Invalid credentials.</span>
+                </div>
+
+                <!-- Username Field -->
+                <div class="form-group">
+                    <div class="form-label-row">
+                        <label for="usernameInput" class="form-label">Authorized Name</label>
+                    </div>
+                    <div class="input-wrapper">
+                        <span class="input-icon" aria-hidden="true">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </span>
+                        <input
+                            type="text"
+                            id="usernameInput"
+                            class="form-input"
+                            placeholder="Enter your full name"
+                            autocomplete="off"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <!-- Password Field -->
+                <div class="form-group">
+                    <div class="form-label-row">
+                        <label for="passwordInput" class="form-label">Vault Passkey</label>
+                    </div>
+                    <div class="input-wrapper">
+                        <span class="input-icon" aria-hidden="true">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
+                            </svg>
+                        </span>
+                        <input
+                            type="password"
+                            id="passwordInput"
+                            class="form-input"
+                            placeholder="Enter vault password"
+                            required
+                        >
+                        <button type="button" id="togglePwdBtn" class="toggle-pwd-btn" aria-label="Show password" title="Show/Hide Password">
+                            <svg id="eyeOpenIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                            <svg id="eyeClosedIcon" class="hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                                <line x1="1" y1="1" x2="23" y2="23"></line>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    <span>Unlock Resource Hub</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </button>
+            </form>
+        </section>
+    </main>
+
+    <!-- ======================================================================
+         2. PROTECTED RESOURCE DASHBOARD (UNLOCKED VIEW)
+         ====================================================================== -->
+    <div id="dashboardView" class="dashboard-wrapper hidden">
+        <!-- Top Header -->
+        <header class="topbar">
+            <div class="brand">
+                <div class="brand-badge" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <h2>Secure File Vault</h2>
+                    <span>Shared Resource Hub</span>
+                </div>
+            </div>
+
+            <div class="topbar-actions">
+                <div class="user-chip">
+                    <span class="status-dot"></span>
+                    <span id="headerUserName">Verified User</span>
+                </div>
+                <button type="button" id="logoutBtn" class="btn-logout">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Welcome Banner -->
+        <section class="welcome-banner">
+            <div class="welcome-content">
+                <h1>Welcome, <span id="welcomeUserName">Member</span></h1>
+                <p>Access shared documents, project assets, spreadsheets, and direct download links curated for the group.</p>
+            </div>
+            <div class="vault-stats">
+                <div class="stat-box">
+                    <span id="totalFilesCount" class="stat-value">0</span>
+                    <span class="stat-label">Total Files</span>
+                </div>
+                <div class="stat-box">
+                    <span id="totalCategoriesCount" class="stat-value">0</span>
+                    <span class="stat-label">Categories</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search & Category Filter Controls -->
+        <section class="controls-bar" aria-label="Filter files">
+            <div class="search-box">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="search" id="searchInput" class="search-input" placeholder="Search by title, description, or file type...">
+            </div>
+
+            <div id="categoryPills" class="filter-pills" role="tablist">
+                <!-- Category buttons dynamically rendered via JS -->
+            </div>
+        </section>
+
+        <!-- Resource Cards Grid -->
+        <main id="filesGrid" class="files-grid" aria-live="polite">
+            <!-- File cards dynamically rendered via JS -->
+        </main>
+    </div>
+
+    <!-- Clipboard Toast Notification -->
+    <div id="toast" class="toast" role="status" aria-live="polite">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span id="toastMessage">Link copied to clipboard!</span>
+    </div>
+
+    <!-- ======================================================================
+         3. JAVASCRIPT LOGIC & FILE LINK CONFIGURATION
+         ====================================================================== -->
+    <script>
+        /**
+         * =========================================================================
+         * DEVELOPER CONFIGURATION: ATTACH YOUR FILE LINKS HERE
+         * =========================================================================
+         * To add a new file, copy one of the objects inside `FILE_LINKS` below and
+         * paste your Google Drive, PDF, Docs, Sheets, Notion, or GitHub URL into `url`.
+         *
+         * Fields:
+         * - title       : Name of the file or resource shown on the card
+         * - description : Short summary of what's inside the file
+         * - category    : Used to auto-generate filter pills (e.g., "Documents", "Notes", "Media")
+         * - type        : File badge label ("PDF", "DRIVE", "SHEET", "DOC", "ZIP", "LINK")
+         * - date        : Upload or last-updated date string
+         * - url         : Direct URL to open or download the file
+         */
+        const FILE_LINKS = [
+            {
+                title: "Master Project Roadmap & Deliverables",
+                description: "Complete timeline, milestones, and task allocation sheet shared for upcoming deadlines.",
+                category: "Documents",
+                type: "PDF",
+                date: "Nov 24, 2026",
+                url: "https://drive.google.com/file/d/EXAMPLE_FILE_ID_1/view"
+            },
+            {
+                title: "Shared Study Notes & Reference Archive",
+                description: "Compiled lecture summaries, formulas, and exam preparation material in a single Drive folder.",
+                category: "Study Material",
+                type: "DRIVE",
+                date: "Nov 22, 2026",
+                url: "https://drive.google.com/drive/folders/EXAMPLE_FOLDER_ID_2"
+            },
+            {
+                title: "Expense Tracker & Event Budget Sheet",
+                description: "Live collaborative spreadsheet tracking group contributions, bookings, and receipts.",
+                category: "Spreadsheets",
+                type: "SHEET",
+                date: "Nov 19, 2026",
+                url: "https://docs.google.com/spreadsheets/d/EXAMPLE_SHEET_ID_3/edit"
+            },
+            {
+                title: "Design Assets & Presentation Deck",
+                description: "High-resolution slides, brand templates, and editable source files ready for download.",
+                category: "Media & Decks",
+                type: "ZIP",
+                date: "Nov 15, 2026",
+                url: "https://github.com/example/repo/archive/refs/heads/main.zip"
+            }
+        ];
+
+        /**
+         * =========================================================================
+         * ACCESS CONTROL CONFIGURATION
+         * =========================================================================
+         */
+        const ALLOWED_USERS = [
+            "Akshat Nahar Jain",
+            "Shubhangi",
+            "Ishita",
+            "Hemant",
+            "Bhavika",
+            "Anshika",
+            "Kajal"
+        ];
+
+        const REQUIRED_PASSWORD = "notyourtype@";
+        const SESSION_KEY = "vault_authenticated_user";
+
+        // DOM Elements
+        const authView = document.getElementById("authView");
+        const dashboardView = document.getElementById("dashboardView");
+        const authCard = document.getElementById("authCard");
+        const loginForm = document.getElementById("loginForm");
+        const usernameInput = document.getElementById("usernameInput");
+        const passwordInput = document.getElementById("passwordInput");
+        const authError = document.getElementById("authError");
+        const authErrorText = document.getElementById("authErrorText");
+        const togglePwdBtn = document.getElementById("togglePwdBtn");
+        const eyeOpenIcon = document.getElementById("eyeOpenIcon");
+        const eyeClosedIcon = document.getElementById("eyeClosedIcon");
+
+        const headerUserName = document.getElementById("headerUserName");
+        const welcomeUserName = document.getElementById("welcomeUserName");
+        const logoutBtn = document.getElementById("logoutBtn");
+        const totalFilesCount = document.getElementById("totalFilesCount");
+        const totalCategoriesCount = document.getElementById("totalCategoriesCount");
+        const searchInput = document.getElementById("searchInput");
+        const categoryPills = document.getElementById("categoryPills");
+        const filesGrid = document.getElementById("filesGrid");
+        const toast = document.getElementById("toast");
+        const toastMessage = document.getElementById("toastMessage");
+
+        // State
+        let activeCategory = "All";
+        let searchQuery = "";
+        let toastTimer = null;
+
+        /**
+         * Display error message with shake animation
+         */
+        function showAuthError(message) {
+            authErrorText.textContent = message;
+            authError.classList.remove("hidden");
+            authCard.classList.remove("shake");
+            void authCard.offsetWidth; // Trigger reflow to restart CSS animation
+            authCard.classList.add("shake");
+        }
+
+        function hideAuthError() {
+            authError.classList.add("hidden");
+            authCard.classList.remove("shake");
+        }
+
+        /**
+         * Validate login credentials
+         */
+        function handleLogin(event) {
+            event.preventDefault();
+            hideAuthError();
+
+            const rawUsername = usernameInput.value.trim();
+            const rawPassword = passwordInput.value;
+
+            if (!rawUsername) {
+                showAuthError("Please enter your authorized name.");
+                usernameInput.focus();
+                return;
+            }
+
+            // Case-insensitive match against ALLOWED_USERS, preserving canonical capitalization
+            const matchedUser = ALLOWED_USERS.find(
+                user => user.toLowerCase() === rawUsername.toLowerCase()
+            );
+
+            if (!matchedUser) {
+                showAuthError(`Access Denied: "${rawUsername}" is not on the authorized user list.`);
+                usernameInput.focus();
+                return;
+            }
+
+            if (rawPassword !== REQUIRED_PASSWORD) {
+                showAuthError("Incorrect vault passkey. Please verify and try again.");
+                passwordInput.value = "";
+                passwordInput.focus();
+                return;
+            }
+
+            // Persist authenticated session
+            try {
+                sessionStorage.setItem(SESSION_KEY, matchedUser);
+            } catch (err) {
+                console.warn("sessionStorage unavailable:", err);
+            }
+
+            unlockDashboard(matchedUser);
+        }
+
+        /**
+         * Switch to Unlocked Dashboard View
+         */
+        function unlockDashboard(canonicalUserName) {
+            headerUserName.textContent = canonicalUserName;
+            welcomeUserName.textContent = canonicalUserName;
+
+            authView.classList.add("hidden");
+            dashboardView.classList.remove("hidden");
+
+            renderDashboardStats();
+            renderCategoryFilters();
+            renderFileCards();
+        }
+
+        /**
+         * Lock Vault & Clear Session
+         */
+        function handleLogout() {
+            try {
+                sessionStorage.removeItem(SESSION_KEY);
+            } catch (err) {
+                console.warn("sessionStorage unavailable:", err);
+            }
+
+            passwordInput.value = "";
+            searchInput.value = "";
+            searchQuery = "";
+            activeCategory = "All";
+            hideAuthError();
+
+            dashboardView.classList.add("hidden");
+            authView.classList.remove("hidden");
+            usernameInput.focus();
+        }
+
+        /**
+         * Render Dashboard Stats
+         */
+        function renderDashboardStats() {
+            const categories = new Set(FILE_LINKS.map(item => item.category));
+            totalFilesCount.textContent = FILE_LINKS.length;
+            totalCategoriesCount.textContent = categories.size;
+        }
+
+        /**
+         * Render Category Filter Pills
+         */
+        function renderCategoryFilters() {
+            const categories = ["All", ...new Set(FILE_LINKS.map(item => item.category))];
+            categoryPills.innerHTML = "";
+
+            categories.forEach(category => {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = `filter-pill ${activeCategory === category ? "active" : ""}`;
+                btn.textContent = category;
+                btn.addEventListener("click", () => {
+                    activeCategory = category;
+                    renderCategoryFilters();
+                    renderFileCards();
+                });
+                categoryPills.appendChild(btn);
+            });
+        }
+
+        /**
+         * Return an inline SVG icon matching the file type
+         */
+        function getFileTypeIcon(type) {
+            const normalized = (type || "").toUpperCase();
+            if (normalized === "SHEET" || normalized === "CSV" || normalized === "XLSX") {
+                return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line><line x1="9" y1="9" x2="9" y2="21"></line></svg>`;
+            }
+            if (normalized === "DRIVE" || normalized === "FOLDER" || normalized === "ZIP") {
+                return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>`;
+            }
+            return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>`;
+        }
+
+        /**
+         * Render Filtered File Cards
+         */
+        function renderFileCards() {
+            const q = searchQuery.toLowerCase().trim();
+
+            const filtered = FILE_LINKS.filter(file => {
+                const matchesCategory = activeCategory === "All" || file.category === activeCategory;
+                const matchesSearch =
+                    !q ||
+                    file.title.toLowerCase().includes(q) ||
+                    file.description.toLowerCase().includes(q) ||
+                    file.category.toLowerCase().includes(q) ||
+                    file.type.toLowerCase().includes(q);
+                return matchesCategory && matchesSearch;
+            });
+
+            filesGrid.innerHTML = "";
+
+            if (filtered.length === 0) {
+                filesGrid.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No matching files found</h3>
+                        <p>Try clearing your search query or switching back to the "All" category filter.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(file => {
+                const card = document.createElement("article");
+                card.className = "file-card";
+
+                card.innerHTML = `
+                    <div>
+                        <div class="card-top">
+                            <div class="file-type-icon" aria-hidden="true">
+                                ${getFileTypeIcon(file.type)}
+                            </div>
+                            <div class="card-badges">
+                                <span class="badge-category">${escapeHTML(file.category)}</span>
+                                <span class="badge-ext">${escapeHTML(file.type)}</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="file-title">${escapeHTML(file.title)}</h3>
+                            <p class="file-desc">${escapeHTML(file.description)}</p>
+                            <div class="file-meta">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                <span>Updated ${escapeHTML(file.date || "Recently")}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-actions">
+                        <a href="${escapeHTML(file.url)}" target="_blank" rel="noopener noreferrer" class="btn-open">
+                            <span>Open / Download</span>
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                        </a>
+                        <button type="button" class="btn-copy" title="Copy file URL">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+                `;
+
+                // Attach Copy Link Handler
+                const copyBtn = card.querySelector(".btn-copy");
+                copyBtn.addEventListener("click", () => copyFileUrl(file.url, file.title));
+
+                filesGrid.appendChild(card);
+            });
+        }
+
+        /**
+         * Copy URL to Clipboard with Fallback & Toast Feedback
+         */
+        function copyFileUrl(url, title) {
+            const tempInput = document.createElement("textarea");
+            tempInput.value = url;
+            tempInput.style.position = "fixed";
+            tempInput.style.opacity = "0";
+            document.body.appendChild(tempInput);
+            tempInput.select();
+
+            try {
+                document.execCommand("copy");
+                showToast(`Copied link for "${title}"`);
+            } catch (err) {
+                showToast("Unable to copy link automatically.");
+            } finally {
+                document.body.removeChild(tempInput);
+            }
+        }
+
+        function showToast(message) {
+            toastMessage.textContent = message;
+            toast.classList.add("show");
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.remove("show");
+            }, 2800);
+        }
+
+        /**
+         * Basic HTML Escaping for Safe Rendering
+         */
+        function escapeHTML(str) {
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        // Event Listeners
+        loginForm.addEventListener("submit", handleLogin);
+        logoutBtn.addEventListener("click", handleLogout);
+
+        togglePwdBtn.addEventListener("click", () => {
+            const isPassword = passwordInput.type === "password";
+            passwordInput.type = isPassword ? "text" : "password";
+            eyeOpenIcon.classList.toggle("hidden", isPassword);
+            eyeClosedIcon.classList.toggle("hidden", !isPassword);
+            togglePwdBtn.setAttribute("aria-label", isPassword ? "Hide password" : "Show password");
+        });
+
+        searchInput.addEventListener("input", (e) => {
+            searchQuery = e.target.value;
+            renderFileCards();
+        });
+
+        // Initialize App & Check Existing Session
+        window.addEventListener("DOMContentLoaded", () => {
+            try {
+                const savedUser = sessionStorage.getItem(SESSION_KEY);
+                if (savedUser && ALLOWED_USERS.includes(savedUser)) {
+                    unlockDashboard(savedUser);
+                    return;
+                }
+            } catch (err) {
+                console.warn("sessionStorage unavailable:", err);
+            }
+
+            usernameInput.focus();
+        });
+    </script>
+</body>
+</html>
