@@ -19,6 +19,108 @@
       -moz-osx-font-smoothing: grayscale;
       -webkit-tap-highlight-color: transparent;
     }
+
+    /* Hero Entrance Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-animate-1 {
+      opacity: 0;
+      animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+    }
+    .hero-animate-2 {
+      opacity: 0;
+      animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
+    }
+    .hero-animate-3 {
+      opacity: 0;
+      animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+    }
+    .hero-animate-4 {
+      opacity: 0;
+      animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards;
+    }
+
+    /* General Scroll-Reveal Classes */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Subtle Ambient Pulse for Glow */
+    @keyframes slowPulse {
+      0%, 100% { opacity: 0.25; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(1.02); }
+    }
+
+    .glow-pulse {
+      animation: slowPulse 4s ease-in-out infinite;
+    }
+
+    /* HR Team Card & Avatar Animations */
+    .team-card {
+      opacity: 0;
+      transform: translateY(28px) scale(0.97);
+      transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.3s ease,
+                  box-shadow 0.35s ease;
+      will-change: opacity, transform;
+    }
+
+    .team-card.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .team-card:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 18px 35px -12px rgba(59, 130, 246, 0.22);
+    }
+
+    @keyframes avatarFloat {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-4px);
+      }
+    }
+
+    .team-avatar {
+      animation: avatarFloat 3.6s ease-in-out infinite;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+    }
+
+    .team-card:hover .team-avatar {
+      animation-play-state: paused;
+      transform: scale(1.08);
+    }
+
+    .team-role {
+      display: inline-block;
+      transition: transform 0.3s ease, letter-spacing 0.3s ease;
+    }
+
+    .team-card:hover .team-role {
+      transform: translateY(-1px);
+      letter-spacing: 0.02em;
+    }
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 antialiased selection:bg-blue-600 selection:text-white">
@@ -35,7 +137,7 @@
       </button>
 
       <div class="flex items-center space-x-3">
-        <!-- Replaced Blue Icon with Official Logo Image -->
+        <!-- Official Logo Image -->
         <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center overflow-hidden shadow-lg shadow-blue-500/20 p-1">
           <img src="bizhr.png" alt="Aryan's BizHub Logo" class="w-full h-full object-contain">
         </div>
@@ -93,11 +195,11 @@
     </div>
 
     <div class="pt-6 border-t border-slate-800">
-       <a href="docx.html" id="mobileConnectBtn" class="w-full flex items-center justify-center px-5 py-3 rounded-xl text-sm font-semibold text-white bg-yellow-600 hover:bg-yellow-500 shadow-lg shadow-yellow-600/30 transition">
+      <a href="docx.html" class="mobile-link w-full flex items-center justify-center px-5 py-3 rounded-xl text-sm font-semibold text-white bg-yellow-600 hover:bg-yellow-500 shadow-lg shadow-yellow-600/30 transition">
         Secure
       </a>
       <br>
-      <a href="wap.html" id="mobileConnectBtn" class="w-full flex items-center justify-center px-5 py-3 rounded-xl text-sm font-semibold text-white bg-green-600 hover:bg-green-500 shadow-lg shadow-green-600/30 transition">
+      <a href="wap.html" class="mobile-link w-full flex items-center justify-center px-5 py-3 rounded-xl text-sm font-semibold text-white bg-green-600 hover:bg-green-500 shadow-lg shadow-green-600/30 transition">
         Proxy
       </a>
       <br>
@@ -119,21 +221,21 @@
   </div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-    <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-8">
+    <div class="hero-animate-1 inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-8">
       <i class="fa-solid fa-shield-heart"></i>
       <span>People First • Growth Always</span>
     </div>
-    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-tight">
+    <h1 class="hero-animate-2 text-4xl sm:text-6xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-tight">
       Empowering Talent, Cultivating <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400">Innovation</span>
     </h1>
-    <p class="mt-6 text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto font-normal">
+    <p class="hero-animate-3 mt-6 text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto font-normal">
       Welcome to the official portal of the Human Resources Department at Aryan's BizHub. We bridge ambition with opportunity, nurturing a high-performance entrepreneurial community.
     </p>
-    <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-      <a href="#connect" class="w-full sm:w-auto px-8 py-4 rounded-xl text-base font-semibold text-white bg-blue-600 hover:bg-blue-500 shadow-xl shadow-blue-600/30 transition text-center">
+    <div class="hero-animate-4 mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a href="#connect" class="w-full sm:w-auto px-8 py-4 rounded-xl text-base font-semibold text-white bg-blue-600 hover:bg-blue-500 shadow-xl shadow-blue-600/30 transition transform hover:-translate-y-0.5 text-center">
         Get in Touch with HR
       </a>
-      <a href="#careers" class="w-full sm:w-auto px-8 py-4 rounded-xl text-base font-semibold text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-center">
+      <a href="#careers" class="w-full sm:w-auto px-8 py-4 rounded-xl text-base font-semibold text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-800 transition transform hover:-translate-y-0.5 text-center">
         Explore Openings
       </a>
     </div>
@@ -144,24 +246,24 @@
 <section id="about" class="py-20 border-t border-slate-900 bg-slate-950/50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-      <div>
+      <div class="reveal">
         <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">Who We Are</h2>
         <p class="mt-4 text-slate-400 text-base leading-relaxed">
           The HR Department at Aryan's BizHub is dedicated to building an inclusive, dynamic, and professional ecosystem. From structured onboarding and skill workshops to conflict resolution and performance tracking, we ensure every member thrives.
         </p>
         <div class="mt-8 grid grid-cols-2 gap-6">
-          <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
-            <div class="text-3xl font-extrabold text-blue-400">120+</div>
+          <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-blue-500/40 transition">
+            <div class="text-3xl font-extrabold text-blue-400 stat-counter" data-target="120" data-suffix="+">0+</div>
             <div class="text-sm text-slate-400 mt-1">Active Club Members</div>
           </div>
-          <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
-            <div class="text-3xl font-extrabold text-indigo-400">95%</div>
+          <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-indigo-500/40 transition">
+            <div class="text-3xl font-extrabold text-indigo-400 stat-counter" data-target="95" data-suffix="%">0%</div>
             <div class="text-sm text-slate-400 mt-1">Engagement Rate</div>
           </div>
         </div>
       </div>
-      <div class="relative">
-        <div class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 opacity-30 blur-lg"></div>
+      <div class="relative reveal" style="transition-delay: 150ms;">
+        <div class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 opacity-30 blur-lg glow-pulse"></div>
         <div class="relative rounded-2xl bg-slate-900 border border-slate-800 p-8">
           <h3 class="text-xl font-bold text-white mb-4 flex items-center space-x-3">
             <i class="fa-solid fa-bullseye text-blue-500"></i>
@@ -186,26 +288,26 @@
 <!-- CORE PILLARS -->
 <section id="pillars" class="py-20 bg-slate-950">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center max-w-3xl mx-auto mb-16">
+    <div class="text-center max-w-3xl mx-auto mb-16 reveal">
       <h2 class="text-3xl font-bold text-white sm:text-4xl">Core HR Pillars</h2>
       <p class="mt-4 text-slate-400 text-base">The functional pillars driving our administrative and cultural initiatives.</p>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="p-8 rounded-2xl bg-slate-900/40 border border-slate-800/80 hover:border-blue-500/50 transition group">
+      <div class="reveal p-8 rounded-2xl bg-slate-900/40 border border-slate-800/80 hover:border-blue-500/50 transition group hover:-translate-y-1">
         <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 text-xl mb-6 group-hover:scale-110 transition">
           <i class="fa-solid fa-user-plus"></i>
         </div>
         <h3 class="text-xl font-bold text-white mb-3">Talent Acquisition</h3>
         <p class="text-slate-400 text-sm leading-relaxed">Rigorous recruitment drives, interviews, and seamless onboarding for incoming innovators.</p>
       </div>
-      <div class="p-8 rounded-2xl bg-slate-900/40 border border-slate-800/80 hover:border-indigo-500/50 transition group">
+      <div class="reveal p-8 rounded-2xl bg-slate-900/40 border border-slate-800/80 hover:border-indigo-500/50 transition group hover:-translate-y-1" style="transition-delay: 120ms;">
         <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 text-xl mb-6 group-hover:scale-110 transition">
           <i class="fa-solid fa-graduation-cap"></i>
         </div>
         <h3 class="text-xl font-bold text-white mb-3">Training & Growth</h3>
         <p class="text-slate-400 text-sm leading-relaxed">Skill development workshops, leadership mentoring, and periodic performance evaluations.</p>
       </div>
-      <div class="p-8 rounded-2xl bg-slate-900/40 border border-slate-800/80 hover:border-purple-500/50 transition group">
+      <div class="reveal p-8 rounded-2xl bg-slate-900/40 border border-slate-800/80 hover:border-purple-500/50 transition group hover:-translate-y-1" style="transition-delay: 240ms;">
         <div class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400 text-xl mb-6 group-hover:scale-110 transition">
           <i class="fa-solid fa-comments"></i>
         </div>
@@ -219,7 +321,7 @@
 <!-- CULTURE SECTION -->
 <section id="culture" class="py-20 bg-slate-900/30 border-t border-slate-900">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center max-w-3xl mx-auto mb-16">
+    <div class="text-center max-w-3xl mx-auto mb-16 reveal">
       <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-semibold uppercase tracking-wider mb-4">
         <i class="fa-solid fa-heart"></i>
         <span>Life at BizHub</span>
@@ -228,7 +330,7 @@
       <p class="mt-4 text-slate-400 text-base">We believe in collaboration, transparency, continuous innovation, and mutual growth.</p>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden group hover:border-blue-500/50 transition">
+      <div class="reveal rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden group hover:border-blue-500/50 transition hover:-translate-y-1">
         <div class="h-48 overflow-hidden">
           <img src="hrdept.jpeg" alt="Inclusive Collaboration" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
         </div>
@@ -237,7 +339,7 @@
           <p class="text-slate-400 text-sm">Every voice matters. We encourage open discussions, creative brainstorming, and team synergy.</p>
         </div>
       </div>
-      <div class="rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden group hover:border-indigo-500/50 transition">
+      <div class="reveal rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden group hover:border-indigo-500/50 transition hover:-translate-y-1" style="transition-delay: 120ms;">
         <div class="h-48 overflow-hidden">
           <img src="aippm.png" alt="Ownership & Growth" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
         </div>
@@ -246,7 +348,7 @@
           <p class="text-slate-400 text-sm">Members take charge of real-world projects, driving initiatives with full accountability and leadership.</p>
         </div>
       </div>
-      <div class="rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden group hover:border-purple-500/50 transition">
+      <div class="reveal rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden group hover:border-purple-500/50 transition hover:-translate-y-1" style="transition-delay: 240ms;">
         <div class="h-48 overflow-hidden">
           <img src="edp.jpeg" alt="Work-Life Balance" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
         </div>
@@ -262,133 +364,157 @@
 <!-- HR TEAM -->
 <section id="team" class="py-20 bg-slate-950 border-t border-slate-900">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center max-w-3xl mx-auto mb-16">
+    <div class="text-center max-w-3xl mx-auto mb-16 reveal">
       <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-semibold uppercase tracking-wider mb-4">
         <i class="fa-solid fa-people-group"></i>
         <span>HR Team</span>
       </div>
-    <div class="text-center max-w-3xl mx-auto mb-16">
       <h2 class="text-3xl font-bold text-white sm:text-4xl">Meet the HR Team</h2>
       <p class="mt-4 text-slate-400 text-base">Dedicated student leaders steering human resources and club operations.</p>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+    <div id="hrTeamGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
       <!-- 1. Akshat Nahar Jain -->
-      <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center group hover:border-blue-500/50 transition relative">
-        <div class="w-28 h-28 rounded-full mx-auto overflow-hidden mb-5 border-2 border-blue-500/40 shadow-lg shadow-blue-500/20 group-hover:scale-105 transition"><img src="anj.png" class="w-full h-full object-cover"></div>
+      <div class="team-card p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center group hover:border-blue-500/50 relative">
+        <div class="team-avatar w-28 h-28 rounded-full mx-auto overflow-hidden mb-5 border-2 border-blue-500/40 shadow-lg shadow-blue-500/20">
+          <img src="anj.png" alt="Akshat Nahar Jain" class="w-full h-full object-cover">
+        </div>
         <h3 class="text-lg font-bold text-white">Akshat Nahar Jain</h3>
-        <p class="text-sm text-blue-400 font-medium mt-1">HR Head</p>
-        <a href="https://www.linkedin.com/in/akshatnahar-jain-6b2a6a31a/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BPxMUPzY4Td%2Bl6i62iYDa2Q%3D%3D" target="_blank" rel="noopener noreferrer" class="absolute bottom-4 right-4 text-blue-400 hover:text-blue-300 text-xl transition transform hover:scale-110">
+        <p class="team-role text-sm text-blue-400 font-medium mt-1">HR Head</p>
+        <a href="https://www.linkedin.com/in/akshatnahar-jain-6b2a6a31a/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BPxMUPzY4Td%2Bl6i62iYDa2Q%3D%3D" target="_blank" rel="noopener noreferrer" class="absolute bottom-4 right-4 text-blue-400 hover:text-blue-300 text-xl transition transform hover:scale-125 hover:rotate-6">
           <i class="fa-brands fa-linkedin"></i>
         </a>
       </div>
 
       <!-- 2. Shubhangi Mandoria -->
-      <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center group hover:border-cyan-500/50 transition relative">
-        <div class="w-28 h-28 rounded-full mx-auto overflow-hidden mb-5 border-2 border-cyan-500/40 shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition"><img src="shubhi.jpg" class="w-full h-full object-cover"></div>
+      <div class="team-card p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center group hover:border-cyan-500/50 relative">
+        <div class="team-avatar w-28 h-28 rounded-full mx-auto overflow-hidden mb-5 border-2 border-cyan-500/40 shadow-lg shadow-cyan-500/20">
+          <img src="shubhi.jpg" alt="Shubhangi Mandoria" class="w-full h-full object-cover">
+        </div>
         <h3 class="text-lg font-bold text-white">Shubhangi Mandoria</h3>
-        <p class="text-sm text-cyan-400 font-medium mt-1">HR Manager</p>
-        <a href="https://www.linkedin.com/in/shubhangi-mandoria-40ab743a1/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BJK%2Bjx5MiT7KvTQM27sMZKA%3D%3D" target="_blank" rel="noopener noreferrer" class="absolute bottom-4 right-4 text-blue-400 hover:text-blue-300 text-xl transition transform hover:scale-110">
+        <p class="team-role text-sm text-cyan-400 font-medium mt-1">HR Manager</p>
+        <a href="https://www.linkedin.com/in/shubhangi-mandoria-40ab743a1/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BJK%2Bjx5MiT7KvTQM27sMZKA%3D%3D" target="_blank" rel="noopener noreferrer" class="absolute bottom-4 right-4 text-blue-400 hover:text-blue-300 text-xl transition transform hover:scale-125 hover:rotate-6">
           <i class="fa-brands fa-linkedin"></i>
         </a>
       </div>
 
       <!-- 3. Ishita Maheshwari -->
-      <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center group hover:border-cyan-500/50 transition relative">
-        <div class="w-28 h-28 rounded-full mx-auto overflow-hidden mb-5 border-2 border-cyan-500/40 shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition"><img src="ishita.jpeg" class="w-full h-full object-cover"></div>
+      <div class="team-card p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center group hover:border-cyan-500/50 relative">
+        <div class="team-avatar w-28 h-28 rounded-full mx-auto overflow-hidden mb-5 border-2 border-cyan-500/40 shadow-lg shadow-cyan-500/20">
+          <img src="ishita.jpeg" alt="Ishita Maheshwari" class="w-full h-full object-cover">
+        </div>
         <h3 class="text-lg font-bold text-white">Ishita Maheshwari</h3>
-        <p class="text-sm text-cyan-400 font-medium mt-1">HR Manager</p>
-        <a href="https://www.linkedin.com/in/shubhangi-mandoria-40ab743a1/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BJK%2Bjx5MiT7KvTQM27sMZKA%3D%3D" target="_blank" rel="noopener noreferrer" class="absolute bottom-4 right-4 text-blue-400 hover:text-blue-300 text-xl transition transform hover:scale-110">
+        <p class="team-role text-sm text-cyan-400 font-medium mt-1">HR Manager</p>
+        <a href="https://www.linkedin.com/in/shubhangi-mandoria-40ab743a1/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BJK%2Bjx5MiT7KvTQM27sMZKA%3D%3D" target="_blank" rel="noopener noreferrer" class="absolute bottom-4 right-4 text-blue-400 hover:text-blue-300 text-xl transition transform hover:scale-125 hover:rotate-6">
           <i class="fa-brands fa-linkedin"></i>
         </a>
       </div>
 
       <!-- 4. Hemant Vatwani -->
-      <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center group hover:border-purple-500/50 transition relative">
-        <div class="w-28 h-28 rounded-full mx-auto overflow-hidden mb-5 border-2 border-purple-500/40 shadow-lg shadow-purple-500/20 group-hover:scale-105 transition"><img src="hemant.jpeg" class="w-full h-full object-cover"></div>
+      <div class="team-card p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center group hover:border-purple-500/50 relative">
+        <div class="team-avatar w-28 h-28 rounded-full mx-auto overflow-hidden mb-5 border-2 border-purple-500/40 shadow-lg shadow-purple-500/20">
+          <img src="hemant.jpeg" alt="Hemant Vatwani" class="w-full h-full object-cover">
+        </div>
         <h3 class="text-lg font-bold text-white">Hemant Vatwani</h3>
-        <p class="text-sm text-purple-400 font-medium mt-1">HR Analyst</p>
-        <a href="https://www.linkedin.com/in/hemant-vatwani-a40531386/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BNpRlhx49T6yPSZQwjws1EQ%3D%3D" target="_blank" rel="noopener noreferrer" class="absolute bottom-4 right-4 text-blue-400 hover:text-blue-300 text-xl transition transform hover:scale-110">
+        <p class="team-role text-sm text-purple-400 font-medium mt-1">HR Analyst</p>
+        <a href="https://www.linkedin.com/in/hemant-vatwani-a40531386/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BNpRlhx49T6yPSZQwjws1EQ%3D%3D" target="_blank" rel="noopener noreferrer" class="absolute bottom-4 right-4 text-blue-400 hover:text-blue-300 text-xl transition transform hover:scale-125 hover:rotate-6">
           <i class="fa-brands fa-linkedin"></i>
         </a>
       </div>
 
       <!-- 5. Bhavika Lilwani -->
-      <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center group hover:border-purple-500/50 transition relative">
-        <div class="w-28 h-28 rounded-full mx-auto overflow-hidden mb-5 border-2 border-purple-500/40 shadow-lg shadow-purple-500/20 group-hover:scale-105 transition"><img src="bhavika.jpeg" class="w-full h-full object-cover"></div>
+      <div class="team-card p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center group hover:border-purple-500/50 relative">
+        <div class="team-avatar w-28 h-28 rounded-full mx-auto overflow-hidden mb-5 border-2 border-purple-500/40 shadow-lg shadow-purple-500/20">
+          <img src="bhavika.jpeg" alt="Bhavika Lilwani" class="w-full h-full object-cover">
+        </div>
         <h3 class="text-lg font-bold text-white">Bhavika Lilwani</h3>
-        <p class="text-sm text-purple-400 font-medium mt-1">HR Analyst</p>
-        <a href="https://www.linkedin.com/in/bhavika-lilwani-545783421/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BPQIVIguwQiq9c6sIgSUfOA%3D%3D" target="_blank" rel="noopener noreferrer" class="absolute bottom-4 right-4 text-blue-400 hover:text-blue-300 text-xl transition transform hover:scale-110">
+        <p class="team-role text-sm text-purple-400 font-medium mt-1">HR Analyst</p>
+        <a href="https://www.linkedin.com/in/bhavika-lilwani-545783421/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BPQIVIguwQiq9c6sIgSUfOA%3D%3D" target="_blank" rel="noopener noreferrer" class="absolute bottom-4 right-4 text-blue-400 hover:text-blue-300 text-xl transition transform hover:scale-125 hover:rotate-6">
           <i class="fa-brands fa-linkedin"></i>
         </a>
       </div>
 
       <!-- 6. Manwik Agarwal -->
-      <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center group hover:border-indigo-500/50 transition relative">
-        <div class="w-28 h-28 rounded-full mx-auto overflow-hidden mb-5 border-2 border-indigo-500/40 shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition"><img src="manwik.jpeg" class="w-full h-full object-cover"></div>
+      <div class="team-card p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center group hover:border-indigo-500/50 relative">
+        <div class="team-avatar w-28 h-28 rounded-full mx-auto overflow-hidden mb-5 border-2 border-indigo-500/40 shadow-lg shadow-indigo-500/20">
+          <img src="manwik.jpeg" alt="Manwik Agarwal" class="w-full h-full object-cover">
+        </div>
         <h3 class="text-lg font-bold text-white">Manwik Agarwal</h3>
-        <p class="text-sm text-indigo-400 font-medium mt-1">HR Associate</p>
-        <a href="https://www.linkedin.com/in/manwik-agarwal-500983304/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3Bmx4SEBmwRCuJ7GeihQhUyw%3D%3D" target="_blank" rel="noopener noreferrer" class="absolute bottom-4 right-4 text-blue-400 hover:text-blue-300 text-xl transition transform hover:scale-110">
+        <p class="team-role text-sm text-indigo-400 font-medium mt-1">HR Associate</p>
+        <a href="https://www.linkedin.com/in/manwik-agarwal-500983304/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3Bmx4SEBmwRCuJ7GeihQhUyw%3D%3D" target="_blank" rel="noopener noreferrer" class="absolute bottom-4 right-4 text-blue-400 hover:text-blue-300 text-xl transition transform hover:scale-125 hover:rotate-6">
           <i class="fa-brands fa-linkedin"></i>
         </a>
       </div>
 
       <!-- 7. Daksh Jangid -->
-      <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center group hover:border-indigo-500/50 transition relative">
-        <div class="w-28 h-28 rounded-full mx-auto overflow-hidden mb-5 border-2 border-indigo-500/40 shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition"><img src="daksh.jpeg" class="w-full h-full object-cover"></div>
+      <div class="team-card p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center group hover:border-indigo-500/50 relative">
+        <div class="team-avatar w-28 h-28 rounded-full mx-auto overflow-hidden mb-5 border-2 border-indigo-500/40 shadow-lg shadow-indigo-500/20">
+          <img src="daksh.jpeg" alt="Daksh Jangid" class="w-full h-full object-cover">
+        </div>
         <h3 class="text-lg font-bold text-white">Daksh Jangid</h3>
-        <p class="text-sm text-indigo-400 font-medium mt-1">HR Associate</p>
-        <a href="https://www.linkedin.com/in/daksh-jangid-609095409/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B1zSXvYJ0SOK%2BR98jqqNQQw%3D%3D" target="_blank" rel="noopener noreferrer" class="absolute bottom-4 right-4 text-blue-400 hover:text-blue-300 text-xl transition transform hover:scale-110">
+        <p class="team-role text-sm text-indigo-400 font-medium mt-1">HR Associate</p>
+        <a href="https://www.linkedin.com/in/daksh-jangid-609095409/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B1zSXvYJ0SOK%2BR98jqqNQQw%3D%3D" target="_blank" rel="noopener noreferrer" class="absolute bottom-4 right-4 text-blue-400 hover:text-blue-300 text-xl transition transform hover:scale-125 hover:rotate-6">
           <i class="fa-brands fa-linkedin"></i>
         </a>
       </div>
 
       <!-- 8. Kajal Longani -->
-      <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center group hover:border-red-500/50 transition sm:col-span-2 lg:col-span-1 lg:col-start-2 relative">
-        <div class="w-28 h-28 rounded-full mx-auto overflow-hidden mb-5 border-2 border-red-500/40 shadow-lg shadow-red-500/20 group-hover:scale-105 transition"><img src="kajal.jpeg" class="w-full h-full object-cover"></div>
+      <div class="team-card p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center group hover:border-red-500/50 sm:col-span-2 lg:col-span-1 lg:col-start-2 relative">
+        <div class="team-avatar w-28 h-28 rounded-full mx-auto overflow-hidden mb-5 border-2 border-red-500/40 shadow-lg shadow-red-500/20">
+          <img src="kajal.jpeg" alt="Kajal Longani" class="w-full h-full object-cover">
+        </div>
         <h3 class="text-lg font-bold text-white">Kajal Longani</h3>
-        <p class="text-sm text-red-400 font-medium mt-1">HR Coordinator</p>
-        <a href="https://www.linkedin.com/in/kajal-longani-0798aa444/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B%2FhKxbA6xQeehuccCigcOWw%3D%3D" target="_blank" rel="noopener noreferrer" class="absolute bottom-4 right-4 text-blue-400 hover:text-blue-300 text-xl transition transform hover:scale-110">
+        <p class="team-role text-sm text-red-400 font-medium mt-1">HR Coordinator</p>
+        <a href="https://www.linkedin.com/in/kajal-longani-0798aa444/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B%2FhKxbA6xQeehuccCigcOWw%3D%3D" target="_blank" rel="noopener noreferrer" class="absolute bottom-4 right-4 text-blue-400 hover:text-blue-300 text-xl transition transform hover:scale-125 hover:rotate-6">
           <i class="fa-brands fa-linkedin"></i>
         </a>
       </div>
 
       <!-- 9. Anshika Chhatwani -->
-      <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center group hover:border-red-500/50 transition relative">
-        <div class="w-28 h-28 rounded-full mx-auto overflow-hidden mb-5 border-2 border-red-500/40 shadow-lg shadow-red-500/20 group-hover:scale-105 transition"><img src="anshika.jpeg" class="w-full h-full object-cover"></div>
+      <div class="team-card p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center group hover:border-red-500/50 relative">
+        <div class="team-avatar w-28 h-28 rounded-full mx-auto overflow-hidden mb-5 border-2 border-red-500/40 shadow-lg shadow-red-500/20">
+          <img src="anshika.jpeg" alt="Anshika Chhatwani" class="w-full h-full object-cover">
+        </div>
         <h3 class="text-lg font-bold text-white">Anshika Chhatwani</h3>
-        <p class="text-sm text-red-400 font-medium mt-1">HR Coordinator</p>
-        <a href="https://www.linkedin.com/in/anshika-chhatwani-583764428/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BWzm8oqKXSia1AwvQutQ%2FvA%3D%3D" target="_blank" rel="noopener noreferrer" class="absolute bottom-4 right-4 text-blue-400 hover:text-blue-300 text-xl transition transform hover:scale-110">
+        <p class="team-role text-sm text-red-400 font-medium mt-1">HR Coordinator</p>
+        <a href="https://www.linkedin.com/in/anshika-chhatwani-583764428/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BWzm8oqKXSia1AwvQutQ%2FvA%3D%3D" target="_blank" rel="noopener noreferrer" class="absolute bottom-4 right-4 text-blue-400 hover:text-blue-300 text-xl transition transform hover:scale-125 hover:rotate-6">
           <i class="fa-brands fa-linkedin"></i>
         </a>
       </div>
 
       <!-- 10. Rishi Sahu -->
-      <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center group hover:border-red-500/50 transition relative">
-        <div class="w-28 h-28 rounded-full mx-auto overflow-hidden mb-5 border-2 border-red-500/40 shadow-lg shadow-red-500/20 group-hover:scale-105 transition"><img src="rishi.jpeg" class="w-full h-full object-cover"></div>
+      <div class="team-card p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center group hover:border-red-500/50 relative">
+        <div class="team-avatar w-28 h-28 rounded-full mx-auto overflow-hidden mb-5 border-2 border-red-500/40 shadow-lg shadow-red-500/20">
+          <img src="rishi.jpeg" alt="Rishi Sahu" class="w-full h-full object-cover">
+        </div>
         <h3 class="text-lg font-bold text-white">Rishi Sahu</h3>
-        <p class="text-sm text-red-400 font-medium mt-1">HR Coordinator</p>
-        <a href="https://www.linkedin.com/in/rishi-sahu-28ba55427/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BFvEHgypnSTija%2BUYdgEm0w%3D%3D" target="_blank" rel="noopener noreferrer" class="absolute bottom-4 right-4 text-blue-400 hover:text-blue-300 text-xl transition transform hover:scale-110">
+        <p class="team-role text-sm text-red-400 font-medium mt-1">HR Coordinator</p>
+        <a href="https://www.linkedin.com/in/rishi-sahu-28ba55427/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BFvEHgypnSTija%2BUYdgEm0w%3D%3D" target="_blank" rel="noopener noreferrer" class="absolute bottom-4 right-4 text-blue-400 hover:text-blue-300 text-xl transition transform hover:scale-125 hover:rotate-6">
           <i class="fa-brands fa-linkedin"></i>
         </a>
       </div>
 
-     <!-- 11. Karn Singh Sisodia -->
-      <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center group hover:border-red-500/50 transition relative">
-        <div class="w-28 h-28 rounded-full mx-auto overflow-hidden mb-5 border-2 border-red-500/40 shadow-lg shadow-red-500/20 group-hover:scale-105 transition"><img src="karn.jpeg" class="w-full h-full object-cover"></div>
+      <!-- 11. Karn Singh Sisodia -->
+      <div class="team-card p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center group hover:border-red-500/50 relative">
+        <div class="team-avatar w-28 h-28 rounded-full mx-auto overflow-hidden mb-5 border-2 border-red-500/40 shadow-lg shadow-red-500/20">
+          <img src="karn.jpeg" alt="Karn Singh Sisodia" class="w-full h-full object-cover">
+        </div>
         <h3 class="text-lg font-bold text-white">Karn Singh Sisodia</h3>
-        <p class="text-sm text-red-400 font-medium mt-1">HR Coordinator</p>
-        <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" class="absolute bottom-4 right-4 text-blue-400 hover:text-blue-300 text-xl transition transform hover:scale-110">
+        <p class="team-role text-sm text-red-400 font-medium mt-1">HR Coordinator</p>
+        <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" class="absolute bottom-4 right-4 text-blue-400 hover:text-blue-300 text-xl transition transform hover:scale-125 hover:rotate-6">
           <i class="fa-brands fa-linkedin"></i>
         </a>
       </div>
-      
+
       <!-- 12. Manisha Rajwani -->
-      <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center group hover:border-pink-500/50 transition relative">
-        <div class="w-28 h-28 rounded-full mx-auto overflow-hidden mb-5 border-2 border-pink-500/40 shadow-lg shadow-pink-500/20 group-hover:scale-105 transition"><img src="manisha.jpeg" class="w-full h-full object-cover"></div>
+      <div class="team-card p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center group hover:border-pink-500/50 relative">
+        <div class="team-avatar w-28 h-28 rounded-full mx-auto overflow-hidden mb-5 border-2 border-pink-500/40 shadow-lg shadow-pink-500/20">
+          <img src="manisha.jpeg" alt="Manisha Rajwani" class="w-full h-full object-cover">
+        </div>
         <h3 class="text-lg font-bold text-white">Manisha Rajwani</h3>
-        <p class="text-sm text-pink-400 font-medium mt-1">HR Assistant</p>
-        <a href="https://www.linkedin.com/in/manisha-rajwani-a35764428/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3Bbql%2Fh50yTwCP%2F9MsRlPX0w%3D%3D" target="_blank" rel="noopener noreferrer" class="absolute bottom-4 right-4 text-blue-400 hover:text-blue-300 text-xl transition transform hover:scale-110">
+        <p class="team-role text-sm text-pink-400 font-medium mt-1">HR Assistant</p>
+        <a href="https://www.linkedin.com/in/manisha-rajwani-a35764428/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3Bbql%2Fh50yTwCP%2F9MsRlPX0w%3D%3D" target="_blank" rel="noopener noreferrer" class="absolute bottom-4 right-4 text-blue-400 hover:text-blue-300 text-xl transition transform hover:scale-125 hover:rotate-6">
           <i class="fa-brands fa-linkedin"></i>
         </a>
       </div>
@@ -400,7 +526,7 @@
 <!-- OPEN ROLES SECTION (DYNAMIC FETCH) -->
 <section id="careers" class="py-20 bg-slate-900/30 border-t border-slate-900">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center max-w-3xl mx-auto mb-16">
+    <div class="text-center max-w-3xl mx-auto mb-16 reveal">
       <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-4">
         <i class="fa-solid fa-briefcase"></i>
         <span>Join Our Team</span>
@@ -419,7 +545,7 @@
 
 <!-- CONNECT WITH HR FORM -->
 <section id="connect" class="py-24 bg-slate-950 border-t border-slate-900">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 reveal">
     <div class="rounded-3xl bg-slate-900/70 border border-slate-800 p-8 sm:p-12 shadow-2xl relative overflow-hidden">
       <div class="text-center max-w-xl mx-auto mb-10">
         <h2 class="text-3xl font-bold text-white sm:text-4xl">Connect with HR</h2>
@@ -429,17 +555,17 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
             <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Full Name *</label>
-            <input type="text" id="fullName" placeholder="enter your full name" required class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500">
+            <input type="text" id="fullName" placeholder="enter your full name" required class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500 transition">
           </div>
           <div>
             <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Email Address *</label>
-            <input type="email" id="email" placeholder="enter your email" required class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500">
+            <input type="email" id="email" placeholder="enter your email" required class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500 transition">
           </div>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
             <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Department</label>
-            <select id="department" class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500">
+            <select id="department" class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500 transition">
               <option value="select">--select department--</option>
               <option value="General Inquiry">General Inquiry</option>
               <option value="Recruitment">Recruitment & Onboarding</option>
@@ -448,15 +574,15 @@
           </div>
           <div>
             <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Subject *</label>
-            <input type="text" id="subject" placeholder="enter subject" required class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500">
+            <input type="text" id="subject" placeholder="enter subject" required class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500 transition">
           </div>
         </div>
         <div>
           <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Message *</label>
-          <textarea id="message" rows="4" placeholder="write your query here" required class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500 resize-none"></textarea>
+          <textarea id="message" rows="4" placeholder="write your query here" required class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500 resize-none transition"></textarea>
         </div>
         <div class="text-center">
-          <button type="submit" id="submitBtn" class="w-full sm:w-auto px-8 py-4 rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-600/30 transition">Submit Inquiry</button>
+          <button type="submit" id="submitBtn" class="w-full sm:w-auto px-8 py-4 rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-600/30 transition transform hover:-translate-y-0.5">Submit Inquiry</button>
         </div>
       </form>
     </div>
@@ -493,6 +619,79 @@
     });
   });
 
+  // General Scroll-Reveal Observer
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  function observeReveals() {
+    document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+      revealObserver.observe(el);
+    });
+  }
+
+  // Animated Stat Counters
+  const counterObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.getAttribute('data-target'), 10);
+        const suffix = el.getAttribute('data-suffix') || '';
+        const duration = 1400;
+        const startTime = performance.now();
+
+        function updateCounter(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const easeOut = 1 - Math.pow(1 - progress, 3);
+          const currentVal = Math.floor(easeOut * target);
+          el.textContent = currentVal + suffix;
+
+          if (progress < 1) {
+            requestAnimationFrame(updateCounter);
+          } else {
+            el.textContent = target + suffix;
+          }
+        }
+
+        requestAnimationFrame(updateCounter);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  // Staggered Entrance & Floating Avatars for HR Team Cards
+  const teamCards = document.querySelectorAll('#hrTeamGrid .team-card');
+  teamCards.forEach((card, idx) => {
+    card.style.transitionDelay = `${(idx % 3) * 110}ms`;
+    const avatar = card.querySelector('.team-avatar');
+    if (avatar) {
+      avatar.style.animationDelay = `${(idx % 4) * 0.45}s`;
+    }
+  });
+
+  const teamObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    observeReveals();
+    document.querySelectorAll('.stat-counter').forEach(counter => {
+      counterObserver.observe(counter);
+    });
+    teamCards.forEach(card => teamObserver.observe(card));
+  });
+
   // Google Sheet Integration Script
   const CONTACT_URL = "https://script.google.com/macros/s/AKfycby-IajuHYqIwEuMqtG8tHgva8NRqPPu11SXctGV6Dyv3i5M81ji2NFLF6xyhEVgALLr/exec";
   const JOBS_URL = "https://script.google.com/macros/s/AKfycbwUjymcO3px_C0UmRDLoGpxjQXv5MtAyu_eFI1K99ojF6JFH5d9ip9FZyoPxyROPmw-/exec";
@@ -504,23 +703,25 @@
         const container = document.getElementById('openingsContainer');
         if (data && data.length > 0) {
           container.innerHTML = '';
-          data.forEach(job => {
+          data.forEach((job, index) => {
             container.innerHTML += `
-                                <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col justify-between hover:border-blue-500/50 transition">
-                                    <div>
-                                        <span class="text-xs font-semibold px-3 py-1 rounded-full bg-blue-500/10 text-blue-400">${job.department}</span>
-                                        <h3 class="text-xl font-bold text-white mt-3">${job.title}</h3>
-                                        <p class="text-slate-400 text-sm mt-2">${job.description}</p>
-                                    </div>
-                                    <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between">
-                                        <span class="text-xs text-slate-500">${job.location}</span>
-                                        <a href="${job.actionLink || '#connect'}" class="text-xs font-semibold text-blue-400 hover:text-blue-300">Apply via HR Form &rarr;</a>
-                                    </div>
-                                </div>
-                            `;
+              <div class="reveal p-6 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col justify-between hover:border-blue-500/50 transition hover:-translate-y-1" style="transition-delay: ${index * 100}ms;">
+                <div>
+                  <span class="text-xs font-semibold px-3 py-1 rounded-full bg-blue-500/10 text-blue-400">${job.department}</span>
+                  <h3 class="text-xl font-bold text-white mt-3">${job.title}</h3>
+                  <p class="text-slate-400 text-sm mt-2">${job.description}</p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between">
+                  <span class="text-xs text-slate-500">${job.location}</span>
+                  <a href="${job.actionLink || '#connect'}" class="text-xs font-semibold text-blue-400 hover:text-blue-300">Apply via HR Form &rarr;</a>
+                </div>
+              </div>
+            `;
           });
+          observeReveals();
         } else {
-          container.innerHTML = '<div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center col-span-2 text-slate-400 text-sm">No open positions available.</div>';
+          container.innerHTML = '<div class="reveal p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center col-span-2 text-slate-400 text-sm">No open positions available.</div>';
+          observeReveals();
         }
       })
       .catch(err => {
