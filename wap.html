@@ -61,6 +61,13 @@
       gap: 10px;
     }
 
+    .password-wrapper {
+      position: relative;
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+
     .input-group input {
       width: 100%;
       padding: 12px 14px;
@@ -72,11 +79,33 @@
       outline: none;
     }
 
+    .password-wrapper input {
+      padding-right: 60px;
+    }
+
     .input-group input:focus {
       border-color: #2563eb;
     }
 
-    .input-group button {
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 4px;
+      width: auto;
+    }
+
+    .toggle-password:hover {
+      color: #ffffff;
+      background: transparent;
+    }
+
+    .submit-btn {
       width: 100%;
       padding: 12px 20px;
       border-radius: 6px;
@@ -89,7 +118,7 @@
       transition: background 0.2s;
     }
 
-    .input-group button:hover {
+    .submit-btn:hover {
       background: #1d4ed8;
     }
 
@@ -115,7 +144,7 @@
           placeholder="Enter Username"
           onkeypress="handleKeyPress(event)"
         />
-        <button type="button" onclick="checkUsername()">Continue</button>
+        <button type="button" class="submit-btn" onclick="checkUsername()">Continue</button>
       </div>
 
       <p id="username-error" class="error-msg"></p>
@@ -129,13 +158,23 @@
       <p class="subtitle">Is page ko access karne ke liye password enter karein:</p>
 
       <div class="input-group">
-        <input
-          type="password"
-          id="site-password"
-          placeholder="Enter Password"
-          onkeypress="handleKeyPress(event)"
-        />
-        <button type="button" onclick="checkPassword()">Unlock</button>
+        <div class="password-wrapper">
+          <input
+            type="password"
+            id="site-password"
+            placeholder="Enter Password"
+            onkeypress="handleKeyPress(event)"
+          />
+          <button
+            type="button"
+            id="toggle-password-btn"
+            class="toggle-password"
+            onclick="togglePassword()"
+          >
+            Show
+          </button>
+        </div>
+        <button type="button" class="submit-btn" onclick="checkPassword()">Unlock</button>
       </div>
 
       <p id="password-error" class="error-msg"></p>
@@ -168,6 +207,20 @@
         if (passwordInput) passwordInput.focus();
       } else {
         errorMsg.innerText = "Access Denied! Invalid username.";
+      }
+    }
+
+    function togglePassword() {
+      const passwordInput = document.getElementById("site-password");
+      const toggleBtn = document.getElementById("toggle-password-btn");
+      if (!passwordInput || !toggleBtn) return;
+
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        toggleBtn.innerText = "Hide";
+      } else {
+        passwordInput.type = "password";
+        toggleBtn.innerText = "Show";
       }
     }
 
