@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HR Departement Aryan's Bizhub | Private Resource Hub</title>
+    <title>Secure File Vault | Private Resource Hub</title>
     <style>
         /* ==========================================================================
            1. CSS VARIABLES & THEME CONFIGURATION
@@ -422,6 +422,28 @@
             color: var(--text-secondary);
             font-size: 0.95rem;
             max-width: 620px;
+        }
+
+        .master-drive-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 0.6rem 1.1rem;
+            background: rgba(4, 197, 250, 0.14);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.86rem;
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+
+        .master-drive-btn:hover {
+            background: var(--accent);
+            color: #041019;
+            box-shadow: 0 4px 18px var(--accent-glow);
         }
 
         .vault-stats {
@@ -887,16 +909,27 @@
         <section class="welcome-banner">
             <div class="welcome-content">
                 <h1>Welcome, <span id="welcomeUserName">Member</span></h1>
-                <p>Access shared documents, project assets, spreadsheets, and direct download links curated for the group.</p>
+                <p>Browse organized Google Drive folders, meeting minutes, HR website resources, program forms, and brand logos curated for the team.</p>
+                <a href="https://drive.google.com/drive/folders/18-7Bw-44mVqGFUGvz4_Btoe1VLRg0ctc?usp=drive_link" target="_blank" rel="noopener noreferrer" class="master-drive-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span>Open Master Google Drive Folder</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
             </div>
             <div class="vault-stats">
                 <div class="stat-box">
                     <span id="totalFilesCount" class="stat-value">0</span>
-                    <span class="stat-label">Total Files</span>
+                    <span class="stat-label">Items</span>
                 </div>
                 <div class="stat-box">
                     <span id="totalCategoriesCount" class="stat-value">0</span>
-                    <span class="stat-label">Categories</span>
+                    <span class="stat-label">Folders</span>
                 </div>
             </div>
         </section>
@@ -936,51 +969,127 @@
     <script>
         /**
          * =========================================================================
-         * DEVELOPER CONFIGURATION: ATTACH YOUR FILE LINKS HERE
+         * FOLDER STRUCTURE CONFIGURATION (FROM MASTER GOOGLE DRIVE DIRECTORY)
          * =========================================================================
-         * To add a new file, copy one of the objects inside `FILE_LINKS` below and
-         * paste your Google Drive, PDF, Docs, Sheets, Notion, or GitHub URL into `url`.
+         */
+        const DRIVE_FOLDERS = [
+            "Records",
+            "Website of HR",
+            "MOM",
+            "Forms",
+            "Prog forms",
+            "IIT Bombay, Entrepreneurship Cell Program",
+            "logos",
+            "old_data",
+            "Trash"
+        ];
+
+        /**
+         * =========================================================================
+         * DEVELOPER CONFIGURATION: ATTACH YOUR FOLDER & FILE LINKS HERE
+         * =========================================================================
+         * How to add an individual file inside any folder:
+         * Copy the template below, uncomment it, set `folder` to one of the exact
+         * folder names above, and paste your Google Drive / Docs / PDF link in `url`.
          *
-         * Fields:
-         * - title       : Name of the file or resource shown on the card
-         * - description : Short summary of what's inside the file
-         * - category    : Used to auto-generate filter pills (e.g., "Documents", "Notes", "Media")
-         * - type        : File badge label ("PDF", "DRIVE", "SHEET", "DOC", "ZIP", "LINK")
-         * - date        : Upload or last-updated date string
-         * - url         : Direct URL to open or download the file
+         * {
+         *     title: "Your File Name",
+         *     description: "Short note about this file.",
+         *     folder: "Records", // Must match one of DRIVE_FOLDERS
+         *     type: "PDF",       // e.g. "Folder", "PDF", "DOC", "SHEET", "PNG", "ZIP"
+         *     date: "Nov 26, 2026",
+         *     url: "https://drive.google.com/file/d/PASTE_FILE_ID/view"
+         * },
          */
         const FILE_LINKS = [
+            // 1. Records
             {
-                title: "Master Project Roadmap & Deliverables",
-                description: "Complete timeline, milestones, and task allocation sheet shared for upcoming deadlines.",
-                category: "Documents",
-                type: "PDF",
-                date: "Nov 24, 2026",
-                url: "https://drive.google.com/file/d/EXAMPLE_FILE_ID_1/view"
+                title: "Records — Main Drive Folder",
+                description: "Official team records, logs, attendance sheets, and historical documentation.",
+                folder: "Records",
+                type: "Folder",
+                date: "Drive Folder",
+                url: "https://drive.google.com/drive/folders/1zG8wtv0PpRDN9nsY4NWY65jjJ1_H5kT9"
             },
+
+            // 2. Website of HR
             {
-                title: "Shared Study Notes & Reference Archive",
-                description: "Compiled lecture summaries, formulas, and exam preparation material in a single Drive folder.",
-                category: "Study Material",
-                type: "DRIVE",
-                date: "Nov 22, 2026",
-                url: "https://drive.google.com/drive/folders/EXAMPLE_FOLDER_ID_2"
+                title: "Website of HR — Main Drive Folder",
+                description: "Web pages, content drafts, assets, and portal files for the HR website.",
+                folder: "Website of HR",
+                type: "Folder",
+                date: "Drive Folder",
+                url: "https://drive.google.com/drive/folders/1f-vvxjfMnjWOjHJ9Jifg5YrrivAHkqDQ"
             },
+
+            // 3. MOM (Minutes of Meeting)
             {
-                title: "Expense Tracker & Event Budget Sheet",
-                description: "Live collaborative spreadsheet tracking group contributions, bookings, and receipts.",
-                category: "Spreadsheets",
-                type: "SHEET",
-                date: "Nov 19, 2026",
-                url: "https://docs.google.com/spreadsheets/d/EXAMPLE_SHEET_ID_3/edit"
+                title: "MOM — Minutes of Meeting Folder",
+                description: "All recorded meeting summaries, action items, and discussion notes.",
+                folder: "MOM",
+                type: "Folder",
+                date: "Drive Folder",
+                url: "https://drive.google.com/drive/folders/1q2hutoMmTXFBiNTNzfJIXNzxy0MXd8KL"
             },
+
+            // 4. Forms
             {
-                title: "Design Assets & Presentation Deck",
-                description: "High-resolution slides, brand templates, and editable source files ready for download.",
-                category: "Media & Decks",
-                type: "ZIP",
-                date: "Nov 15, 2026",
-                url: "https://github.com/example/repo/archive/refs/heads/main.zip"
+                title: "Forms — Main Drive Folder",
+                description: "General registration, feedback, onboarding, and response forms.",
+                folder: "Forms",
+                type: "Folder",
+                date: "Drive Folder",
+                url: "https://drive.google.com/drive/folders/1eg3Q3ZlEgtg12kHZmJWfPj3-L4ciVQKK"
+            },
+
+            // 5. Prog forms
+            {
+                title: "Prog forms — Main Drive Folder",
+                description: "Program-specific application forms, participant sheets, and event sign-ups.",
+                folder: "Prog forms",
+                type: "Folder",
+                date: "Drive Folder",
+                url: "https://drive.google.com/drive/folders/1pmqtTLUNGKORI-JRAHg9HL3TYuPAJzLw"
+            },
+
+            // 6. IIT Bombay, Entrepreneurship Cell Program
+            {
+                title: "IIT Bombay, Entrepreneurship Cell Program",
+                description: "E-Cell IIT Bombay program guidelines, submissions, decks, and coordinator files.",
+                folder: "IIT Bombay, Entrepreneurship Cell Program",
+                type: "Folder",
+                date: "Drive Folder",
+                url: "https://drive.google.com/drive/folders/1ITpGHjCJB9nhbyA_y8bmRIwTLSpzG0Hc"
+            },
+
+            // 7. logos
+            {
+                title: "logos — Brand & Vector Assets Folder",
+                description: "Official logos, transparent PNGs, SVGs, and branding kits.",
+                folder: "logos",
+                type: "Folder",
+                date: "Drive Folder",
+                url: "https://drive.google.com/drive/folders/1G66KKs-F__Gkq8WsLVQNAmxNSRwg-1eB"
+            },
+
+            // 8. old_data
+            {
+                title: "old_data — Archived Files Folder",
+                description: "Previous versions, legacy backups, and archived reference data.",
+                folder: "old_data",
+                type: "Folder",
+                date: "Drive Folder",
+                url: "https://drive.google.com/drive/folders/1viZlb69JQ2oBIJIY8mz6tXEbMwEBbjCV"
+            },
+
+            // 9. Trash
+            {
+                title: "Trash — Discarded / Temp Folder",
+                description: "Temporary or deprecated items moved out of active folders.",
+                folder: "Trash",
+                type: "Folder",
+                date: "Drive Folder",
+                url: "https://drive.google.com/drive/folders/1sA7oOhusZCsn0P9DAET5fiBou3cLfciH"
             }
         ];
 
@@ -1131,25 +1240,25 @@
          * Render Dashboard Stats
          */
         function renderDashboardStats() {
-            const categories = new Set(FILE_LINKS.map(item => item.category));
+            const folders = new Set([...DRIVE_FOLDERS, ...FILE_LINKS.map(item => item.folder)]);
             totalFilesCount.textContent = FILE_LINKS.length;
-            totalCategoriesCount.textContent = categories.size;
+            totalCategoriesCount.textContent = folders.size;
         }
 
         /**
-         * Render Category Filter Pills
+         * Render Folder Filter Pills
          */
         function renderCategoryFilters() {
-            const categories = ["All", ...new Set(FILE_LINKS.map(item => item.category))];
+            const folders = ["All", ...new Set([...DRIVE_FOLDERS, ...FILE_LINKS.map(item => item.folder)])];
             categoryPills.innerHTML = "";
 
-            categories.forEach(category => {
+            folders.forEach(folderName => {
                 const btn = document.createElement("button");
                 btn.type = "button";
-                btn.className = `filter-pill ${activeCategory === category ? "active" : ""}`;
-                btn.textContent = category;
+                btn.className = `filter-pill ${activeCategory === folderName ? "active" : ""}`;
+                btn.textContent = folderName;
                 btn.addEventListener("click", () => {
-                    activeCategory = category;
+                    activeCategory = folderName;
                     renderCategoryFilters();
                     renderFileCards();
                 });
@@ -1172,20 +1281,20 @@
         }
 
         /**
-         * Render Filtered File Cards
+         * Render Filtered Folder & File Cards
          */
         function renderFileCards() {
             const q = searchQuery.toLowerCase().trim();
 
             const filtered = FILE_LINKS.filter(file => {
-                const matchesCategory = activeCategory === "All" || file.category === activeCategory;
+                const matchesFolder = activeCategory === "All" || file.folder === activeCategory;
                 const matchesSearch =
                     !q ||
                     file.title.toLowerCase().includes(q) ||
                     file.description.toLowerCase().includes(q) ||
-                    file.category.toLowerCase().includes(q) ||
+                    file.folder.toLowerCase().includes(q) ||
                     file.type.toLowerCase().includes(q);
-                return matchesCategory && matchesSearch;
+                return matchesFolder && matchesSearch;
             });
 
             filesGrid.innerHTML = "";
@@ -1193,8 +1302,8 @@
             if (filtered.length === 0) {
                 filesGrid.innerHTML = `
                     <div class="empty-state">
-                        <h3>No matching files found</h3>
-                        <p>Try clearing your search query or switching back to the "All" category filter.</p>
+                        <h3>No matching folders or files found</h3>
+                        <p>Try clearing your search query or switching back to the "All" folder tab.</p>
                     </div>
                 `;
                 return;
@@ -1211,7 +1320,7 @@
                                 ${getFileTypeIcon(file.type)}
                             </div>
                             <div class="card-badges">
-                                <span class="badge-category">${escapeHTML(file.category)}</span>
+                                <span class="badge-category">${escapeHTML(file.folder)}</span>
                                 <span class="badge-ext">${escapeHTML(file.type)}</span>
                             </div>
                         </div>
@@ -1223,21 +1332,21 @@
                                     <circle cx="12" cy="12" r="10"></circle>
                                     <polyline points="12 6 12 12 16 14"></polyline>
                                 </svg>
-                                <span>Updated ${escapeHTML(file.date || "Recently")}</span>
+                                <span>${escapeHTML(file.date || "Drive Resource")}</span>
                             </div>
                         </div>
                     </div>
 
                     <div class="card-actions">
                         <a href="${escapeHTML(file.url)}" target="_blank" rel="noopener noreferrer" class="btn-open">
-                            <span>Open / Download</span>
+                            <span>Open Link</span>
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                                 <polyline points="15 3 21 3 21 9"></polyline>
                                 <line x1="10" y1="14" x2="21" y2="3"></line>
                             </svg>
                         </a>
-                        <button type="button" class="btn-copy" title="Copy file URL">
+                        <button type="button" class="btn-copy" title="Copy URL">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                                 <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
