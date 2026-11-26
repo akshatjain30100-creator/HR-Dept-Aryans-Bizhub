@@ -121,34 +121,46 @@
 </head>
 <body>
 <!-- Username Overlay -->
-<div id="username-overlay"> 
-  <div class="username-card"> 
-    <h2>Access Restricted</h2> 
-    <p>Is page ko access karne ke liye username enter karein:</p> 
-    
-    <div class="input-group" style="display: flex; flex-direction: column; gap: 10px;"> 
-      <input type="text" id="site-username" placeholder="Enter Username" onkeypress="handleKeyPress(event)" style="width: 100%; padding: 10px;" /> 
-      <button onclick="checkUsername()" style="width: 100%; padding: 10px;">Unlock</button> 
-    </div> 
-    
-    <p id="error-msg"></p> 
-  </div> 
-</div>
-<!-- Password Overlay --> 
-<div id="password-overlay"> 
-  <div class="password-card"> 
-    <h2>Access Restricted</h2> 
-    <p>Is page ko access karne ke liye password enter karein:</p> 
-    
-    <div class="input-group" style="display: flex; flex-direction: column; gap: 10px;"> 
-      <input type="password" id="site-password" placeholder="Enter Password" onkeypress="handleKeyPress(event)" style="width: 100%; padding: 10px;" /> 
-      <button onclick="checkPassword()" style="width: 100%; padding: 10px;">Unlock</button> 
-    </div> 
-    
-    <p id="error-msg"></p> 
-  </div> 
+<div id="username-overlay">
+  <div class="username-card">
+    <h2>Access Restricted</h2>
+    <p>Is page ko access karne ke liye username enter karein:</p>
+
+    <div class="input-group" style="display: flex; flex-direction: column; gap: 10px;">
+      <input
+        type="text"
+        id="site-username"
+        placeholder="Enter Username"
+        onkeypress="handleKeyPress(event)"
+        style="width: 100%; padding: 10px;"
+      />
+      <button onclick="checkUsername()" style="width: 100%; padding: 10px;">Continue</button>
+    </div>
+
+    <p id="username-error"></p>
+  </div>
 </div>
 
+<!-- Password Overlay -->
+<div id="password-overlay" style="display: none;">
+  <div class="password-card">
+    <h2>Access Restricted</h2>
+    <p>Is page ko access karne ke liye password enter karein:</p>
+
+    <div class="input-group" style="display: flex; flex-direction: column; gap: 10px;">
+      <input
+        type="password"
+        id="site-password"
+        placeholder="Enter Password"
+        onkeypress="handleKeyPress(event)"
+        style="width: 100%; padding: 10px;"
+      />
+      <button onclick="checkPassword()" style="width: 100%; padding: 10px;">Unlock</button>
+    </div>
+
+    <p id="password-error"></p>
+  </div>
+</div>
   <script>
   const ALLOWED_USERNAMES = ["Akshat NJ", "Ishita M"];
   const CORRECT_PASSWORD = "mysecretpassword";
